@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "policyVersion": "1.0.0",
+  "guardMode": "deny",
+  "updatedAt": "__UPDATED_AT__",
+  "authorization": {
+    "sourceType": "user",
+    "reference": "__AUTHORIZATION_REFERENCE__",
+    "decisionId": "__INITIAL_DECISION_ID__",
+    "outcome": "Initialize director role firewall"
+  },
+  "profiles": {
+    "director": {
+      "purpose": "context_firewall",
+      "handoffRequired": true,
+      "allowedIntents": [
+        "plan",
+        "dispatch",
+        "monitor",
+        "verify",
+        "record",
+        "coordinate"
+      ],
+      "forbiddenIntents": [
+        "discover",
+        "history_scan",
+        "diagnose",
+        "debug",
+        "implement"
+      ],
+      "allowedActions": [
+        "plan",
+        "dispatch",
+        "monitor",
+        "read_worker_summary",
+        "verify_read",
+        "verify_command",
+        "precise_thread_read",
+        "record",
+        "orchestrate_release"
+      ],
+      "forbiddenActions": [
+        "broad_thread_search",
+        "raw_rollout_scan",
+        "history_reconstruction",
+        "open_ended_code_exploration",
+        "debug_implementation",
+        "edit_business_code",
+        "long_log_analysis",
+        "repeat_full_worker_investigation",
+        "self_assign_unscoped_audit"
+      ],
+      "verificationBudget": {
+        "maxSummaryLines": 20,
+        "maxReadOperationsPerDelivery": 1,
+        "maxNamedFiles": 1,
+        "maxNamedCommands": 1,
+        "maxEvidenceItems": 1,
+        "maxPreciseThreadReads": 1,
+        "allowWildcardSearch": false,
+        "allowFollowOnInvestigation": false
+      },
+      "dispatchPriority": [
+        "create_task",
+        "send_task",
+        "wait_task"
+      ]
+    },
+    "worker": {
+      "purpose": "produce_evidence_or_change",
+      "handoffRequired": false,
+      "allowedIntents": [
+        "discover",
+        "history_scan",
+        "diagnose",
+        "debug",
+        "implement",
+        "verify",
+        "record"
+      ],
+      "forbiddenIntents": [],
+      "allowedActions": [
+        "plan",
+        "dispatch",
+        "monitor",
+        "read_worker_summary",
+        "verify_read",
+        "verify_command",
+        "precise_thread_read",
+        "record",
+        "orchestrate_release",
+        "investigate",
+        "implement",
+        "test"
+      ],
+      "forbiddenActions": [
+        "deploy_without_authorization",
+        "paid_call_without_authorization",
+        "production_data_change_without_authorization"
+      ],
+      "verificationBudget": {
+        "maxSummaryLines": 20,
+        "maxReadOperationsPerDelivery": 20,
+        "maxNamedFiles": 20,
+        "maxNamedCommands": 20,
+        "maxEvidenceItems": 20,
+        "maxPreciseThreadReads": 20,
+        "allowWildcardSearch": true,
+        "allowFollowOnInvestigation": true
+      }
+    }
+  },
+  "bindings": [
+    {
+      "threadId": "__DIRECTOR_THREAD_ID__",
+      "profile": "director",
+      "status": "active",
+      "boundAt": "__UPDATED_AT__",
+      "authority": "user-confirmed-role"
+    }
+  ],
+  "unknownThreadDefaultProfile": "worker",
+  "successionPhrases": [
+    "接任项目总监",
+    "Act as project director"
+  ],
+  "businessPathPatterns": [
+    "(^|/)src/",
+    "(^|/)app/",
+    "(^|/)services/",
+    "(^|/)packages/"
+  ],
+  "lastHandoff": null
+}

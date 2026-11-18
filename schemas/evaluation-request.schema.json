@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "director-role-firewall/evaluation-request.schema.json",
+  "type": "object",
+  "required": [
+    "threadId"
+  ],
+  "properties": {
+    "threadId": {
+      "type": "string",
+      "minLength": 8
+    },
+    "actorMode": {
+      "type": "string",
+      "enum": [
+        "director",
+        "worker"
+      ]
+    },
+    "threadTitle": {
+      "type": "string"
+    },
+    "intent": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "plannedActions": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "dispatchSatisfied": {
+      "type": "boolean"
+    },
+    "dispatchedTaskIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "workerDeliveryId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verificationBudgetUsed": {
+      "type": "object"
+    },
+    "authorization": {
+      "type": "object"
+    }
+  }
+}

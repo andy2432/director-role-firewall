@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "director-role-firewall/role-contract.schema.json",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "revision",
+    "policyVersion",
+    "guardMode",
+    "profiles",
+    "bindings",
+    "unknownThreadDefaultProfile",
+    "successionPhrases",
+    "businessPathPatterns"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "policyVersion": {
+      "type": "string"
+    },
+    "guardMode": {
+      "type": "string",
+      "enum": [
+        "audit",
+        "deny"
+      ]
+    },
+    "authorization": {
+      "type": "object"
+    },
+    "profiles": {
+      "type": "object"
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "threadId",
+          "profile",
+          "status",
+          "boundAt",
+          "authority"
+        ],
+        "properties": {
+          "threadId": {
+            "type": "string",
+            "minLength": 8
+          },
+          "profile": {
+            "type": "string",
+            "enum": [
+              "director",
+              "worker"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "superseded"
+            ]
+          },
+          "boundAt": {
+            "type": "string"
+          },
+          "authority": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "unknownThreadDefaultProfile": {
+      "const": "worker"
+    },
+    "successionPhrases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "businessPathPatterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

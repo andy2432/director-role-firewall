@@ -1,0 +1,99 @@
+{
+  "description": "Director Role Firewall lifecycle adapter",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact|fork",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" session-start",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') session-start\"",
+            "timeout": 10,
+            "statusMessage": "Loading director role card"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" user-prompt",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') user-prompt\"",
+            "timeout": 10,
+            "statusMessage": "Classifying director intent"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$|^apply_patch$|^(?:mcp__.*__)?(?:list_threads|read_thread|create_thread|send_message_to_thread|wait_threads)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" pre-tool",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') pre-tool\"",
+            "timeout": 10,
+            "statusMessage": "Checking director action policy"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "^Bash$|^apply_patch$|^(?:mcp__.*__)?(?:list_threads|read_thread|create_thread|send_message_to_thread|wait_threads)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" post-tool",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') post-tool\"",
+            "timeout": 10,
+            "statusMessage": "Recording director action"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "manual|auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" pre-compact",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') pre-compact\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "manual|auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" post-compact",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') post-compact\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.director-role-firewall/codex-role-guard.mjs\" stop",
+            "commandWindows": "powershell.exe -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.director-role-firewall/codex-role-guard.mjs') stop\"",
+            "timeout": 10,
+            "statusMessage": "Checking for role drift before stop"
+          }
+        ]
+      }
+    ]
+  }
+}

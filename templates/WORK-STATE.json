@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "__UPDATED_AT__",
+  "repository": {
+    "branch": "__BRANCH__",
+    "baseSha": "__BASE_SHA__",
+    "observedHead": "__HEAD__"
+  },
+  "tasks": []
+}

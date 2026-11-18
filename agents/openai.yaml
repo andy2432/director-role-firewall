@@ -1,0 +1,7 @@
+interface:
+  display_name: "Director Role Firewall"
+  short_description: "Keep coordinator agents on dispatch, verification, and handoff"
+  default_prompt: "Use $director-role-firewall to install or audit a dispatch-first coordinator role with runtime enforcement."
+
+policy:
+  allow_implicit_invocation: true

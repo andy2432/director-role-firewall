@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "paths": {
+    "roleContract": "agent-context/ROLE-CONTRACT.json",
+    "workState": "agent-context/WORK-STATE.json",
+    "decisionLog": "agent-context/DECISION-LOG.jsonl",
+    "contextResume": "agent-context/CONTEXT-RESUME.md"
+  },
+  "runtimeStateDir": ".git/director-role-firewall"
+}
